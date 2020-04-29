@@ -1,14 +1,15 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import GlobalStyle from './styles/global';
 
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SingUp';
-import Home from './pages/Home';
+import Routes from './routes';
 
 const App = () => (
   <>
-    <SignIn />
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
     <GlobalStyle />
   </>
 );

@@ -2,10 +2,9 @@ import React from 'react';
 
 import { Container } from './styles';
 
-const Input = ({ icon: Icon, ...props }) => {
+const Input = ({ ...props }) => {
   return (
     <Container>
-      <Icon />
       <input {...props} />
     </Container>
   );

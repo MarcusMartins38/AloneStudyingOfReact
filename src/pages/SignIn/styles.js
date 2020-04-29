@@ -36,19 +36,7 @@ export const Content = styled.div`
       font-family: 'Fjalla One', serif;
     }
 
-    input {
-      background: #f6f5f5;
-      border-radius: 18px;
-      border: 2px solid #2d2d2d;
-      width: 100%;
-      padding: 16px;
-      color: #2d2d2d;
-      font-family: 'Roboto Slab', serif;
 
-      & + input {
-        margin-top: 15px;
-      }
-    }
 
     div {
       display: flex;

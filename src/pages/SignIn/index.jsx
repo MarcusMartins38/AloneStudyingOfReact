@@ -1,5 +1,7 @@
 import React from 'react';
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
+
+import { FiLogIn } from 'react-icons/fi';
 
 import Input from '../../components/Input/input';
 
@@ -16,8 +18,8 @@ const SignIn = () => {
         <form>
           <h2>Faça seu Login</h2>
 
-          <Input type="email" icon={FiMail} placeholder="E-mail" />
-          <Input type="password" icon={FiLock} placeholder="Password" />
+          <Input type="email" placeholder="E-mail" />
+          <Input type="password" placeholder="Password" />
           <div>
             <button type="button">Entrar</button>
 
@@ -25,10 +27,10 @@ const SignIn = () => {
           </div>
         </form>
 
-        <a href="SingUp">
+        <Link to="/SignUp">
           <FiLogIn />
           Criar Conta
-        </a>
+        </Link>
       </Content>
 
       <Background>

@@ -50,10 +50,9 @@ export const Header = styled.div`
     a {
       margin: 15px 10px 0 35px;
       padding: 10px;
+      display: flex;
 
       svg {
-        width: 25px;
-        height: 22px;
         transition: color 0.3s;
 
         &:hover {
@@ -118,8 +117,6 @@ export const Content3 = styled.div`
       svg {
         color: #474ebb;
         transition: color 0.3s;
-        width: 25px;
-        height: 25px;
 
         &:hover {
           color: ${shade(0.3, 'red')};

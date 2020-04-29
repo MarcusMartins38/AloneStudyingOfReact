@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { FiTrash2, FiPower } from 'react-icons/fi';
 
 import { Container, Header, Content2, Content3 } from './styles';
@@ -11,9 +13,9 @@ const Home = () => {
 
         <div>
           <button type="button">Cadastrar novo caso</button>
-          <a href="a">
-            <FiPower />
-          </a>
+          <Link to="/">
+            <FiPower size={25} />
+          </Link>
         </div>
       </Header>
 
@@ -51,7 +53,7 @@ const Home = () => {
             </div>
 
             <a href="button">
-              <FiTrash2 />
+              <FiTrash2 size={23} />
             </a>
           </a>
 
@@ -86,7 +88,7 @@ const Home = () => {
             </div>
 
             <a href="button">
-              <FiTrash2 />
+              <FiTrash2 size={23} />
             </a>
           </a>
 
@@ -121,7 +123,7 @@ const Home = () => {
             </div>
 
             <a href="button">
-              <FiTrash2 />
+              <FiTrash2 size={23} />
             </a>
           </a>
 
@@ -156,7 +158,7 @@ const Home = () => {
             </div>
 
             <a href="button">
-              <FiTrash2 />
+              <FiTrash2 size={23} />
             </a>
           </a>
         </Content3>

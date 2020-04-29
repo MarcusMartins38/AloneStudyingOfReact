@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { FiArrowLeft } from 'react-icons/fi';
 
 import registerImage from '../../assets/registerImage.png';
 
-import { Container, Content2, Background, Content } from './styles';
+import { Container, Content2, Content } from './styles';
 
 const SingUp = () => {
   return (
@@ -18,9 +19,9 @@ const SingUp = () => {
             durante essas crises
           </p>
 
-          <a href="back">
+          <Link to="/">
             <FiArrowLeft /> Já tenho cadastro
-          </a>
+          </Link>
         </div>
       </Content>
 
