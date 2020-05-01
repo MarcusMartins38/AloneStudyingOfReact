@@ -79,19 +79,6 @@ export const Content2 = styled.div`
       margin-bottom: 24px;
       font-family: 'Fjalla One', serif;
     }
-    input {
-      background: #f6f5f5;
-      border-radius: 18px;
-      border: 2px solid #2d2d2d;
-      width: 100%;
-      padding: 13px 0 13px 10px;
-      color: #2d2d2d;
-      font-family: 'Roboto Slab', serif;
-
-      & + input {
-        margin-top: 15px;
-      }
-    }
 
     div {
       width: 100%;
@@ -101,12 +88,10 @@ export const Content2 = styled.div`
       justify-content: center;
       align-items: center;
 
-      input {
-        & + input {
-          max-width: 50px;
-          margin-left: 10px;
-          margin-bottom: 15px;
-        }
+      &:last-child {
+        max-width: 60px;
+        margin-left: 10px;
+        margin-bottom: 12px;
       }
     }
 

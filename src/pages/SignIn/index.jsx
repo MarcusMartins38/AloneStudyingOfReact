@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Form } from '@unform/web';
 
 import { FiLogIn } from 'react-icons/fi';
 
@@ -15,17 +16,17 @@ const SignIn = () => {
       <Content>
         <h1>Seja o héroi de alguém</h1>
 
-        <form>
+        <Form>
           <h2>Faça seu Login</h2>
 
-          <Input type="email" placeholder="E-mail" />
-          <Input type="password" placeholder="Password" />
+          <Input name="email" type="email" placeholder="E-mail" />
+          <Input name="password" type="password" placeholder="Password" />
           <div>
-            <button type="button">Entrar</button>
+            <button type="submit">Entrar</button>
 
             <a href="forogt">Esqueci minha senha</a>
           </div>
-        </form>
+        </Form>
 
         <Link to="/SignUp">
           <FiLogIn />

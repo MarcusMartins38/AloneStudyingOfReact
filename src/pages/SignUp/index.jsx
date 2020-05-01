@@ -1,17 +1,49 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { Form } from '@unform/web';
+import * as Yup from 'yup';
 
 import { FiArrowLeft } from 'react-icons/fi';
+
+import Input from '../../components/Input/input';
 
 import registerImage from '../../assets/registerImage.png';
 
 import { Container, Content2, Content } from './styles';
 
 const SingUp = () => {
+  const handleSubmit = useCallback(async (data) => {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome Obrigatório'),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail valido'),
+        password: Yup.string().min(6, 'Senha no minimo 6 digitos'),
+        phone: Yup.number()
+          .required('Telefone pra contato obrigatório')
+          .min(
+            11,
+            'minimo 11 digitos sendo (xx)XXXXX-XXXX , sem a utilização dos parenteses'
+          ),
+        uf: Yup.string()
+          .required('UF obrigatoria')
+          .min(2, '2 Caracteres no UF')
+          .uppercase(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   return (
     <Container>
       <Content>
-        <img src={registerImage} alt="a" />
+        <img src={registerImage} alt="Imagem de Calendario" />
         <div>
           <h2>Registre-se</h2>
           <p>
@@ -26,18 +58,18 @@ const SingUp = () => {
       </Content>
 
       <Content2>
-        <form>
+        <Form onSubmit={handleSubmit}>
           <h1>Faça seu Registro</h1>
 
-          <input placeholder="Nome" />
-          <input type="email" placeholder="E-mail" />
-          <input type="password" placeholder="Password" />
+          <Input name="nome" placeholder="Nome" />
+          <Input name="email" type="email" placeholder="E-mail" />
+          <Input name="password" type="password" placeholder="Password" />
           <div>
-            <input type="phone" placeholder="Whatsapp" />
-            <input placeholder="UF" />
+            <Input name="phone" type="tel" placeholder="Whatsapp" />
+            <Input maxLength="2" name="uf" placeholder="UF" />
           </div>
-          <button type="button">Registrar-se</button>
-        </form>
+          <button type="submit">Registrar-se</button>
+        </Form>
       </Content2>
     </Container>
   );
