@@ -1,13 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 import { FiTrash2, FiPower } from 'react-icons/fi';
 
-import { Container, Header, Content2, Content3 } from './styles';
+import { Container, Header, Content2, Content3, BoxOfContent } from './styles';
 import { useAuth } from '../../hooks/AuthContext';
+import api from '../../services/api';
 
 const Home = () => {
+  const [notes, setNotes] = useState([]);
+
   const { signOut } = useAuth();
+
+  useEffect(() => {
+    api.get('notes').then((response) => {
+      setNotes(response.data);
+    });
+  }, [notes]);
 
   return (
     <Container>
@@ -25,145 +33,36 @@ const Home = () => {
       <Content2>
         <h1>Casos Cadastrados:</h1>
         <Content3>
-          <a href="a" className="Conteudo">
-            <div className="div-conteudo">
-              <div>
-                <p>
-                  <strong>Caso:</strong>
-                </p>
-                <p>Caso 1</p>
+          {notes.map((note) => (
+            <BoxOfContent>
+              <div className="div-conteudo">
+                <div>
+                  <p>
+                    <strong>Caso:</strong>
+                  </p>
+                  <p>{note.case_title}</p>
+                </div>
+
+                <div>
+                  <p>
+                    <strong>Descrição:</strong>
+                  </p>
+                  <p>{note.description}</p>
+                </div>
+
+                <div>
+                  <p>
+                    <strong>O que me ajudaria:</strong>
+                  </p>
+                  <p>{note.help}</p>
+                </div>
               </div>
 
-              <div>
-                <p>
-                  <strong>Descrição:</strong>
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum repudiandae voluptatum quod atque tenetur tempore,
-                  accusamus voluptate eos dicta aliquid odit labore. Alias
-                  maiores ratione sapiente, deserunt voluptatibus exercitationem
-                  magnam?
-                </p>
-              </div>
-
-              <div>
-                <p>
-                  <strong>O que me ajudaria:</strong>
-                </p>
-                <p>R$500,00</p>
-              </div>
-            </div>
-
-            <a href="button">
-              <FiTrash2 size={23} />
-            </a>
-          </a>
-
-          <a href="a" className="Conteudo">
-            <div className="div-conteudo">
-              <div>
-                <p>
-                  <strong>Caso:</strong>
-                </p>
-                <p>Caso 1</p>
-              </div>
-
-              <div>
-                <p>
-                  <strong>Descrição:</strong>
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum repudiandae voluptatum quod atque tenetur tempore,
-                  accusamus voluptate eos dicta aliquid odit labore. Alias
-                  maiores ratione sapiente, deserunt voluptatibus exercitationem
-                  magnam?
-                </p>
-              </div>
-
-              <div>
-                <p>
-                  <strong>O que me ajudaria:</strong>
-                </p>
-                <p>R$500,00</p>
-              </div>
-            </div>
-
-            <a href="button">
-              <FiTrash2 size={23} />
-            </a>
-          </a>
-
-          <a href="a" className="Conteudo">
-            <div className="div-conteudo">
-              <div>
-                <p>
-                  <strong>Caso:</strong>
-                </p>
-                <p>Caso 1</p>
-              </div>
-
-              <div>
-                <p>
-                  <strong>Descrição:</strong>
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum repudiandae voluptatum quod atque tenetur tempore,
-                  accusamus voluptate eos dicta aliquid odit labore. Alias
-                  maiores ratione sapiente, deserunt voluptatibus exercitationem
-                  magnam?
-                </p>
-              </div>
-
-              <div>
-                <p>
-                  <strong>O que me ajudaria:</strong>
-                </p>
-                <p>R$500,00</p>
-              </div>
-            </div>
-
-            <a href="button">
-              <FiTrash2 size={23} />
-            </a>
-          </a>
-
-          <a href="a" className="Conteudo">
-            <div className="div-conteudo">
-              <div>
-                <p>
-                  <strong>Caso:</strong>
-                </p>
-                <p>Caso 1</p>
-              </div>
-
-              <div>
-                <p>
-                  <strong>Descrição:</strong>
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Nostrum repudiandae voluptatum quod atque tenetur tempore,
-                  accusamus voluptate eos dicta aliquid odit labore. Alias
-                  maiores ratione sapiente, deserunt voluptatibus exercitationem
-                  magnam?
-                </p>
-              </div>
-
-              <div>
-                <p>
-                  <strong>O que me ajudaria:</strong>
-                </p>
-                <p>R$500,00</p>
-              </div>
-            </div>
-
-            <a href="button">
-              <FiTrash2 size={23} />
-            </a>
-          </a>
+              <a href="button">
+                <FiTrash2 size={23} />
+              </a>
+            </BoxOfContent>
+          ))}
         </Content3>
       </Content2>
     </Container>

@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     const user = localStorage.getItem('@Volunteer:User');
 
     if (token && user) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
       return { token, user: JSON.parse(user) };
     }
 
@@ -26,6 +27,8 @@ export const AuthProvider = ({ children }) => {
 
     localStorage.setItem('@Volunteer:Token', token);
     localStorage.setItem('@Volunteer:User', JSON.stringify(user));
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, user });
   }, []);

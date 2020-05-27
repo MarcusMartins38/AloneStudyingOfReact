@@ -75,54 +75,59 @@ export const Content2 = styled.div`
 
 export const Content3 = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-content: space-between;
   flex-wrap: wrap;
+`;
 
-  .Conteudo {
-    border-radius: 6px;
-    max-width: 420px;
-    height: 300px;
+export const BoxOfContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 420px;
+  width: 420px;
+  height: 300px;
+  margin: 15px 0;
+
+  border-radius: 6px;
+  box-shadow: 2px 2px 8px;
+  border: 1px solid black;
+  text-decoration: none;
+
+  color: black;
+
+  transition: border 0.5s;
+
+  &:hover {
+    border: 2.6px solid #474ebb;
+  }
+
+  .div-conteudo {
     display: flex;
-    box-shadow: 2px 2px 8px;
-    border: 1px solid black;
-    text-decoration: none;
-    color: black;
-    margin: 15px 0;
+    flex-direction: column;
+    justify-content: space-between;
 
-    transition: border 0.5s;
+    div {
+      margin: 0 0 0 4px;
 
-    &:hover {
-      border: 2.6px solid #474ebb;
-    }
+      p {
+        font-family: 'Roboto Slab', serif;
 
-    .div-conteudo {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      div {
-        margin: 0 0 0 4px;
-
-        p {
-          font-family: 'Roboto Slab', serif;
-
-          strong {
-            font-size: 18px;
-          }
+        strong {
+          font-size: 18px;
         }
       }
     }
+  }
 
-    a {
-      margin: 15px 15px 0 0;
+  a {
+    margin: 15px 15px 0 0;
 
-      svg {
-        color: #474ebb;
-        transition: color 0.3s;
+    svg {
+      color: #474ebb;
+      transition: color 0.3s;
 
-        &:hover {
-          color: ${shade(0.3, 'red')};
-        }
+      &:hover {
+        color: ${shade(0.3, 'red')};
       }
     }
   }
