@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -12,33 +12,51 @@ import registerImage from '../../assets/registerImage.png';
 import { Container, Content2, Content } from './styles';
 
 const SingUp = () => {
-  const handleSubmit = useCallback(async (data) => {
-    try {
-      const schema = Yup.object().shape({
-        name: Yup.string().required('Nome Obrigatório'),
-        email: Yup.string()
-          .required('E-mail obrigatório')
-          .email('Digite um e-mail valido'),
-        password: Yup.string().min(6, 'Senha no minimo 6 digitos'),
-        phone: Yup.number()
-          .required('Telefone pra contato obrigatório')
-          .min(
-            11,
-            'minimo 11 digitos sendo (xx)XXXXX-XXXX , sem a utilização dos parenteses'
-          ),
-        uf: Yup.string()
-          .required('UF obrigatoria')
-          .min(2, '2 Caracteres no UF')
-          .uppercase(),
-      });
+  const [users, setUsers] = useState(() => {
+    const storagedUsers = localStorage.getItem('@Volunteer:User');
 
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      console.log(err);
+    if (storagedUsers) {
+      return JSON.parse(storagedUsers);
     }
-  }, []);
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('@Volunteer:User', JSON.stringify(users));
+  }, [users]);
+
+  const handleSubmit = useCallback(
+    async (data) => {
+      try {
+        const schema = Yup.object().shape({
+          name: Yup.string(),
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um e-mail valido'),
+          password: Yup.string().min(6, 'Senha no minimo 6 digitos'),
+          phone: Yup.number()
+            .required('Telefone pra contato obrigatório')
+            .min(
+              11,
+              'minimo 11 digitos sendo (xx)XXXXX-XXXX , sem a utilização dos parenteses'
+            ),
+          uf: Yup.string()
+            .required('UF obrigatoria')
+            .min(2, '2 Caracteres no UF')
+            .uppercase(),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        setUsers([...users, data]);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    [users]
+  );
 
   return (
     <Container>
