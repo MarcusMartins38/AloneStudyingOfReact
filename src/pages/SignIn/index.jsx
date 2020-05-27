@@ -15,8 +15,6 @@ import BackgroundPessoal from '../../assets/volunteers3.png';
 const SignIn = () => {
   const { user, signIn } = useAuth();
 
-  console.log(user);
-
   const [users, setUsers] = useState(() => {
     const storagedUsers = localStorage.getItem('@Volunteer:User');
 
@@ -26,12 +24,15 @@ const SignIn = () => {
     return [];
   });
 
-  const handleSubmitSingIn = (data) => {
-    signIn({
-      email: data.email,
-      password: data.password,
-    });
-  };
+  const handleSubmitSingIn = useCallback(
+    async (data) => {
+      signIn({
+        email: data.email,
+        password: data.password,
+      });
+    },
+    [signIn]
+  );
 
   return (
     <Container>

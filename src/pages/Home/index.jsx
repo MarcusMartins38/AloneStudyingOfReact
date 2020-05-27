@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 import { FiTrash2, FiPower } from 'react-icons/fi';
 
 import { Container, Header, Content2, Content3 } from './styles';
+import { useAuth } from '../../hooks/AuthContext';
 
 const Home = () => {
+  const { signOut } = useAuth();
+
   return (
     <Container>
       <Header>
@@ -13,9 +16,9 @@ const Home = () => {
 
         <div>
           <button type="button">Cadastrar novo caso</button>
-          <Link to="/">
+          <button id="svg_button" type="button" onClick={signOut}>
             <FiPower size={25} />
-          </Link>
+          </button>
         </div>
       </Header>
 

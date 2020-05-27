@@ -1,9 +1,9 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-
 import { FiArrowLeft } from 'react-icons/fi';
+import api from '../../services/api';
 
 import Input from '../../components/Input/input';
 
@@ -12,51 +12,47 @@ import registerImage from '../../assets/registerImage.png';
 import { Container, Content2, Content } from './styles';
 
 const SingUp = () => {
-  const [users, setUsers] = useState(() => {
-    const storagedUsers = localStorage.getItem('@Volunteer:User');
+  const history = useHistory();
 
-    if (storagedUsers) {
-      return JSON.parse(storagedUsers);
+  const handleSubmit = useCallback(async (data) => {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string(),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail valido'),
+        password: Yup.string().min(6, 'Senha no minimo 6 digitos'),
+        phone: Yup.number()
+          .required('Telefone pra contato obrigatório')
+          .min(
+            11,
+            'minimo 11 digitos sendo (xx)XXXXX-XXXX , sem a utilização dos parenteses'
+          ),
+        uf: Yup.string()
+          .required('UF obrigatoria')
+          .min(2, '2 Caracteres no UF')
+          .uppercase(),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+
+      const { name, email, password, phone, uf } = data;
+
+      await api.post('users', {
+        name,
+        email,
+        password,
+        phone,
+        uf,
+      });
+
+      history.push('/');
+    } catch (err) {
+      console.log(err);
     }
-    return [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem('@Volunteer:User', JSON.stringify(users));
-  }, [users]);
-
-  const handleSubmit = useCallback(
-    async (data) => {
-      try {
-        const schema = Yup.object().shape({
-          name: Yup.string(),
-          email: Yup.string()
-            .required('E-mail obrigatório')
-            .email('Digite um e-mail valido'),
-          password: Yup.string().min(6, 'Senha no minimo 6 digitos'),
-          phone: Yup.number()
-            .required('Telefone pra contato obrigatório')
-            .min(
-              11,
-              'minimo 11 digitos sendo (xx)XXXXX-XXXX , sem a utilização dos parenteses'
-            ),
-          uf: Yup.string()
-            .required('UF obrigatoria')
-            .min(2, '2 Caracteres no UF')
-            .uppercase(),
-        });
-
-        await schema.validate(data, {
-          abortEarly: false,
-        });
-
-        setUsers([...users, data]);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    [users]
-  );
+  }, []);
 
   return (
     <Container>
@@ -79,7 +75,7 @@ const SingUp = () => {
         <Form onSubmit={handleSubmit}>
           <h1>Faça seu Registro</h1>
 
-          <Input name="nome" placeholder="Nome" />
+          <Input name="name" placeholder="Nome" />
           <Input name="email" type="email" placeholder="E-mail" />
           <Input name="password" type="password" placeholder="Password" />
           <div>

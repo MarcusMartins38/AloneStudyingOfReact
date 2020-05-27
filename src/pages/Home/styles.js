@@ -28,7 +28,7 @@ export const Header = styled.div`
     align-items: center;
     justify-content: space-around;
 
-    Button {
+    > Button {
       background: #474ebb;
       border-radius: 10px;
       border: 0;
@@ -47,13 +47,15 @@ export const Header = styled.div`
       }
     }
 
-    a {
+    #svg_button {
       margin: 15px 10px 0 35px;
       padding: 10px;
       display: flex;
+      background: transparent;
 
       svg {
         transition: color 0.3s;
+        color: #474ebb;
 
         &:hover {
           color: ${shade(0.3, 'red')};

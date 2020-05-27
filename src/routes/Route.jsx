@@ -9,11 +9,16 @@ const Route = ({ isPrivate = false, component: Component, ...rest }) => {
   return (
     <ReactDOMRoute
       {...rest}
-      render={() => {
+      render={({ location }) => {
         return isPrivate === !!user ? (
           <Component />
         ) : (
-          <Redirect to={{ pathname: isPrivate ? '/' : '/Home' }} />
+          <Redirect
+            to={{
+              pathname: isPrivate ? '/' : '/Home',
+              state: { from: location },
+            }}
+          />
         );
       }}
     />
