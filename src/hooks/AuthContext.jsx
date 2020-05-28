@@ -18,19 +18,24 @@ export const AuthProvider = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('sessions', {
-      email,
-      password,
-    });
+    try {
+      const response = await api.post('sessions', {
+        email,
+        password,
+      });
 
-    const { token, user } = response.data;
+      const { token, user } = response.data;
 
-    localStorage.setItem('@Volunteer:Token', token);
-    localStorage.setItem('@Volunteer:User', JSON.stringify(user));
+      localStorage.setItem('@Volunteer:Token', token);
+      localStorage.setItem('@Volunteer:User', JSON.stringify(user));
 
-    api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.authorization = `Bearer ${token}`;
 
-    setData({ token, user });
+      setData({ token, user });
+    } catch (err) {
+      const error = 'This Account not exists';
+      return error;
+    }
   }, []);
 
   const signOut = useCallback(() => {

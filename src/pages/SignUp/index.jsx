@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
+/* eslint-disable no-unused-expressions */
+import React, { useCallback, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiCpu } from 'react-icons/fi';
 import api from '../../services/api';
 
 import Input from '../../components/Input/input';
@@ -12,6 +13,9 @@ import registerImage from '../../assets/registerImage.png';
 import { Container, Content2, Content } from './styles';
 
 const SingUp = () => {
+  const formRef = useRef(null);
+  const [yupErrors, setYupErrors] = useState([]);
+
   const history = useHistory();
 
   const handleSubmit = useCallback(async (data) => {
@@ -50,7 +54,8 @@ const SingUp = () => {
 
       history.push('/');
     } catch (err) {
-      console.log(err);
+      const { errors } = err;
+      setYupErrors(errors);
     }
   }, []);
 
@@ -72,9 +77,10 @@ const SingUp = () => {
       </Content>
 
       <Content2>
-        <Form onSubmit={handleSubmit}>
+        <Form ref={formRef} onSubmit={handleSubmit}>
           <h1>Faça seu Registro</h1>
 
+          {yupErrors && yupErrors.map((error) => <p>*{error}</p>)}
           <Input name="name" placeholder="Nome" />
           <Input name="email" type="email" placeholder="E-mail" />
           <Input name="password" type="password" placeholder="Password" />

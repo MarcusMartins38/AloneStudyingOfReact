@@ -1,6 +1,7 @@
-import React, { useCallback, useState, useContext } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
+import * as Yup from 'yup';
 
 import { FiLogIn } from 'react-icons/fi';
 
@@ -13,23 +14,34 @@ import { Container, Content, Background } from './styles';
 import BackgroundPessoal from '../../assets/volunteers3.png';
 
 const SignIn = () => {
-  const { user, signIn } = useAuth();
-
-  const [users, setUsers] = useState(() => {
-    const storagedUsers = localStorage.getItem('@Volunteer:User');
-
-    if (storagedUsers) {
-      return JSON.parse(storagedUsers);
-    }
-    return [];
-  });
+  const { signIn } = useAuth();
+  const [yupErrors, setYupErrors] = useState([]);
+  const [authError, setAuthError] = useState();
 
   const handleSubmitSingIn = useCallback(
     async (data) => {
-      signIn({
-        email: data.email,
-        password: data.password,
-      });
+      try {
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('E-mail obrigatório')
+            .email('Digite um e-mail valido'),
+          password: Yup.string().min(6, 'Senha no minimo 6 digitos'),
+        });
+
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        const authErr = await signIn({
+          email: data.email,
+          password: data.password,
+        });
+
+        setAuthError(authErr);
+        setYupErrors('');
+      } catch (err) {
+        setYupErrors(err.errors);
+      }
     },
     [signIn]
   );
@@ -42,13 +54,11 @@ const SignIn = () => {
         <Form onSubmit={handleSubmitSingIn}>
           <h2>Faça seu Login</h2>
 
+          {yupErrors && yupErrors.map((error) => <p>*{error}</p>)}
+          {yupErrors.length == 0 && authError && <p>*{authError}</p>}
           <Input name="email" type="email" placeholder="E-mail" />
           <Input name="password" type="password" placeholder="Password" />
-          <div>
-            <button type="submit">Entrar</button>
-
-            <a href="forogt">Esqueci minha senha</a>
-          </div>
+          <button type="submit">Entrar</button>
         </Form>
 
         <Link to="/SignUp">

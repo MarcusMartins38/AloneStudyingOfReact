@@ -80,6 +80,13 @@ export const Content2 = styled.div`
       font-family: 'Fjalla One', serif;
     }
 
+    p {
+      color: red;
+      & + p {
+        margin: 2px 0;
+      }
+    }
+
     div {
       width: 100%;
       max-width: 300px;

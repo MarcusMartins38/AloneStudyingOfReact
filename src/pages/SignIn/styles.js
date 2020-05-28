@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { shade, lighten } from 'polished';
 
-import BackgroundPessoal from '../../assets/volunteers3.png';
-
 export const Container = styled.div`
   height: 100vh;
 
@@ -36,59 +34,54 @@ export const Content = styled.div`
       font-family: 'Fjalla One', serif;
     }
 
+    p {
+      color: red;
+      margin: 4px 0;
+    }
 
+    button {
+      background: #474ebb;
+      border-radius: 18px;
+      border: 0;
+      margin: 25px 0 0 0;
+      padding: 15px 70px;
+      font-family: 'Roboto Slab', serif;
+      transition: background-color 0.4s;
 
-    div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      align-content: center;
-
-      button {
-        background: #474EBB;
-        border-radius: 18px;
-        border: 0;
-        margin: 25px 0 0 0;
-        padding: 15px 70px;
-        font-family: 'Roboto Slab', serif;
-        transition: background-color 0.4s;
-
-        &:hover {
-          background: ${lighten(0.05, '#474EBB')};
-        }
+      &:hover {
+        background: ${lighten(0.05, '#474EBB')};
       }
-      a {
-        color: #7D7FCF;
-        text-decoration: none;
-        margin-top: 15px;
-        transition: color 0.4s;
-        font-family: 'Roboto Slab', serif;
+    }
+    a {
+      color: #7d7fcf;
+      text-decoration: none;
+      margin-top: 15px;
+      transition: color 0.4s;
+      font-family: 'Roboto Slab', serif;
 
-        &:hover {
-          color: ${shade(0.3, '#7D7FCF')};
-        }
+      &:hover {
+        color: ${shade(0.3, '#7D7FCF')};
       }
     }
   }
 
   > a {
-      color: #474EBB;
-      text-decoration: none;
-      margin-top: 15px;
-      font-size: 18px;
+    color: #474ebb;
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 18px;
 
-      display: flex;
-      align-items: center;
-      font-family: 'Roboto Slab', serif;
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto Slab', serif;
 
-      transition: color 0.4s;
+    transition: color 0.4s;
 
-      &:hover {
-        color: ${lighten(0.2, '#474EBB')};
-      }
-      svg {
-        margin-right: 10px;
-      }
+    &:hover {
+      color: ${lighten(0.2, '#474EBB')};
+    }
+    svg {
+      margin-right: 10px;
     }
   }
 `;
@@ -107,4 +100,3 @@ export const Background = styled.div`
     max-width: 600px;
   }
 `;
-//  background: url(${BackgroundPessoal}) no-repeat;
