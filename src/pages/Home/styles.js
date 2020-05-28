@@ -119,12 +119,18 @@ export const BoxOfContent = styled.div`
     }
   }
 
-  a {
+  button {
     margin: 15px 15px 0 0;
+    width: 25px;
+    height: 25px;
+    border: 0;
+    background: transparent;
 
     svg {
       color: #474ebb;
       transition: color 0.3s;
+      width: 100%;
+      height: 100%;
 
       &:hover {
         color: ${shade(0.3, 'red')};

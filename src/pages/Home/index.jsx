@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { FiTrash2, FiPower } from 'react-icons/fi';
 
@@ -8,8 +9,13 @@ import api from '../../services/api';
 
 const Home = () => {
   const [notes, setNotes] = useState([]);
+  const history = useHistory();
 
   const { signOut } = useAuth();
+
+  function handleRedirectCreateNote() {
+    history.push('/CreateNote');
+  }
 
   useEffect(() => {
     api.get('notes').then((response) => {
@@ -17,13 +23,19 @@ const Home = () => {
     });
   }, [notes]);
 
+  function handleDeleteNote(id) {
+    api.delete(`notes/${id}`);
+  }
+
   return (
     <Container>
       <Header>
         <p>Bem vindo, Héroi</p>
 
         <div>
-          <button type="button">Cadastrar novo caso</button>
+          <button onClick={handleRedirectCreateNote} type="button">
+            Cadastrar novo caso
+          </button>
           <button id="svg_button" type="button" onClick={signOut}>
             <FiPower size={25} />
           </button>
@@ -34,7 +46,7 @@ const Home = () => {
         <h1>Casos Cadastrados:</h1>
         <Content3>
           {notes.map((note) => (
-            <BoxOfContent>
+            <BoxOfContent key={note.id}>
               <div className="div-conteudo">
                 <div>
                   <p>
@@ -58,9 +70,9 @@ const Home = () => {
                 </div>
               </div>
 
-              <a href="button">
+              <button type="button" onClick={() => handleDeleteNote(note.id)}>
                 <FiTrash2 size={23} />
-              </a>
+              </button>
             </BoxOfContent>
           ))}
         </Content3>
