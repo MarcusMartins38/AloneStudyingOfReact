@@ -3,7 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { FiArrowLeft, FiCpu } from 'react-icons/fi';
+import { FiArrowLeft } from 'react-icons/fi';
 import api from '../../services/api';
 
 import Input from '../../components/Input/input';
