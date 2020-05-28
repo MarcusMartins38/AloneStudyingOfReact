@@ -1,7 +1,7 @@
 # Studying React
 I made this application, just to study React and how to consume some Api that I created too.
 
-In the App, we can Create an Account, Log in, Quit Account, Registar some Notes (That has: Case: The title, Description: Explanation of problem, Help: What would help you).
+In the App, we can Create an Account, Log in, Quit Account, Register some Notes (That has: Case: The title, Description: Explanation of problem, Help: What would help you).
 
 <img src="src/images/signIn.png" width=550 >
 
